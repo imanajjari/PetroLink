@@ -1,0 +1,10 @@
+# main modules
+django >4.2,<4.3
+python-decouple
+django-debug-toolbar
+Pillow
+Faker
+requests
+
+#databse modules
+psycopg[binary]
