@@ -6,6 +6,7 @@ from django.views.generic import (
 from .models import (
     ProductModel,
     ProductImageModel,
+    ProductFileModel,
     ProductCategoryModel,
     WishlistProductModel,
     ProductStatusType)

@@ -82,6 +82,7 @@ class AdminProductEditView(LoginRequiredMixin, HasAdminAccessPermission, Success
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["image_form"] = ProductImageForm()
+        context["file_form"] = ProductFileForm()
         return context
 
     def get_object(self, queryset=None):
@@ -139,3 +140,57 @@ class AdminProductRemoveImageView(LoginRequiredMixin, HasAdminAccessPermission, 
         messages.error(
             self.request, 'اشکالی در حذف تصویر رخ داد لطفا مجدد امتحان نمایید')
         return redirect(reverse_lazy('dashboard:admin:product-edit', kwargs={'pk': self.kwargs.get('pk')}))
+
+
+
+
+
+
+
+
+
+
+
+class AdminProductAddFileView(LoginRequiredMixin, HasAdminAccessPermission, CreateView):
+    http_method_names = ['post']
+    form_class = ProductFileForm
+
+    def get_success_url(self):
+        return reverse_lazy('dashboard:admin:product-edit', kwargs={'pk': self.kwargs.get('pk')})
+
+    def get_queryset(self):
+        return ProductFileModel.objects.filter(product__id=self.kwargs.get('pk'))
+
+    def form_valid(self, form):
+        form.instance.product = ProductModel.objects.get(
+            pk=self.kwargs.get('pk'))
+        # handle successful form submission
+        messages.success(
+            self.request, 'فایل مورد نظر با موفقیت ثبت شد')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        # handle unsuccessful form submission
+        messages.error(
+            self.request, 'اشکالی در ارسال فایل رخ داد لطفا مجدد امتحان نمایید')
+        return redirect(reverse_lazy('dashboard:admin:product-edit', kwargs={'pk': self.kwargs.get('pk')}))
+
+
+class AdminProductRemoveFileView(LoginRequiredMixin, HasAdminAccessPermission, SuccessMessageMixin, DeleteView):
+    http_method_names = ["post"]
+    success_message = "فایل مورد نظر با موفقیت حذف شد"
+
+    def get_queryset(self):
+        return ProductFileModel.objects.filter(product__id=self.kwargs.get('pk'))
+    
+    def get_object(self, queryset=None):
+        return self.get_queryset().get(pk=self.kwargs.get('file_id'))
+
+    def get_success_url(self):
+        return reverse_lazy('dashboard:admin:product-edit', kwargs={'pk': self.kwargs.get('pk')})
+
+    def form_invalid(self, form):
+        messages.error(
+            self.request, 'اشکالی در حذف فایل رخ داد لطفا مجدد امتحان نمایید')
+        return redirect(reverse_lazy('dashboard:admin:product-edit', kwargs={'pk': self.kwargs.get('pk')}))
+

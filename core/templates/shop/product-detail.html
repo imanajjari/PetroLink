@@ -273,6 +273,105 @@
     </div>
     <!-- End Row -->
 </div>
+
+
+<!-- files product -->
+<div class="container content-space-t-2 content-space-md-3">
+{% for product_file in object.product_files.all %}
+    <div class="swiper-slide mb-2">
+        <div class="card card-bordered shadow-none p-2">
+            <a href={{product_file.file.url}}>{{product_file.file}}</a>
+        </div>
+    </div>
+{% endfor %}
+</div>
+<!-- end files product -->
+<!-- table detail -->
+<div class="container content-space-t-2 content-space-md-3">
+    <div class="row" style=" padding:4px 12px;">
+        <table style="text-align:center;">
+            <tr style="border-bottom:1px solid gray;">
+              <th>مشخصه</th>
+              <th>میزان</th>
+            </tr>
+            <tr>
+                <td>شماره مدرک</td>
+                <td>{{object.docNo}}</td>
+            </tr>
+            <tr>
+              <td>سازنده اصلی</td>
+              <td>{{object.vendor}}</td>
+            </tr>
+            <tr>
+              <td>شماره قطعه کارخانه اصلی سازنده</td>
+              <td>{{object.manufacturerPartNo}}</td>
+            </tr>
+            <tr>
+                <td>شماره قطعه سازنده</td>
+                <td>{{object.supplierPartNo}}</td>
+            </tr>
+            <tr>
+                <td>حوزه</td>
+              <td>{{object.get_discipline_display}}</td>
+            </tr>
+            <tr>
+              <td>نوع تجهیزات اصلی</td>
+              <td>{{object.get_equipmentType_display}}</td>
+            </tr>
+            <tr>
+              <td>شماره تجهیزات</td>
+              <td>{{object.equipmentTagNo}}</td>
+            </tr>
+            <tr>
+              <td>عنوان مجتمع</td>
+              <td>{{object.get_plant_display }}</td>
+            </tr>
+            <tr>
+              <td>عنوان واحد فرایندی</td>
+              <td>{{object.processUnit}}</td>
+            </tr>
+            <tr>
+              <td>سابقه ساخت داخل دارد</td>
+              <td>{{object.isManufactured}}</td>
+            </tr>
+            <tr>
+              <td>شرکت سانده داخلی</td>
+              <td>{{object.manufactured}}</td>
+            </tr>
+            <tr>
+              <td>قیمت قطعه</td>
+              <td>{{object.originalUnitPrice}}</td>
+            </tr>
+            <tr>
+              <td>ارز</td>
+              <td>{{object.get_currency_display}}</td>
+            </tr>
+            <tr>
+              <td>قیمت قطعه</td>
+              <td>{{object.get_exchangeRate_display}}</td>
+            </tr>
+            <tr>
+              <td>تاریخ ساخت داخل</td>
+              <td>{{object.ManufacturedData}}</td>
+            </tr>
+            <tr>
+              <td>ساخته شده برای مجتمع</td>
+              <td>{{object.get_ManufacturedForPlant_display}}</td>
+            </tr>
+            <tr>
+              <td>صرفه جویی ناشی از ساخت داخل</td>
+              <td>{{object.savingMony}}</td>
+            </tr>
+            <tr>
+              <td>میزان رضایت</td>
+              <td>{{object.Satisfaction}}</td>
+            </tr>
+          </table>
+    </div>
+    <!-- End Row -->
+</div>
+
+
 <!-- End Content -->
 
 {% show_similar_products object %}
