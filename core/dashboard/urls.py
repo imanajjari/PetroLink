@@ -7,6 +7,9 @@ urlpatterns = [
     path("home/",views.DashboardHomeView.as_view(),name="home"),
 
     # include admin urls
+    path("super-admin/", include('dashboard.superAdmin.urls')),
+
+    # include admin urls
     path("admin/", include('dashboard.admin.urls')),
     
     # include customer urls

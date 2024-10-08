@@ -32,7 +32,7 @@ class AdminProductListView(LoginRequiredMixin, HasAdminAccessPermission, ListVie
         return self.request.GET.get('page_size', self.paginate_by)
 
     def get_queryset(self):
-        queryset = ProductModel.objects.all()
+        queryset = ProductModel.objects.filter(user=self.request.user)
         if search_q := self.request.GET.get("q"):
             queryset = queryset.filter(title__icontains=search_q)
         if category_id := self.request.GET.get("category_id"):

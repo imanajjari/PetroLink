@@ -26,10 +26,18 @@ class EquipmentType(models.IntegerChoices):
     equipment = 8 ,("تجهیزات")
     other = 9 ,("دیگر")
 
-class PlantType(models.IntegerChoices):
-    kerman = 1 ,("کرمان")
-    shiraz = 2 ,("شیراز")
-    pardis = 3 ,("پردیس")
+class PlantType(models.Model):
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(allow_unicode=True,unique=True)
+    
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ["-created_date"]
+        
+    def __str__(self):
+        return self.name
 
 class ProcessUnit(models.IntegerChoices):
     ammonia = 1 ,("آمونیاک")
@@ -41,8 +49,6 @@ class CurrencyType(models.IntegerChoices):
     euro = 2 ,("یورو")
     Dirham = 3 ,("درهم")
     yuan = 4 ,("یوان")
-
-
 
 
 class ProductCategoryModel(models.Model):
@@ -85,7 +91,7 @@ class ProductModel(models.Model):
     # شماره تجهیز
     equipmentTagNo = models.CharField(max_length=255,null=True,blank=True)
     # عنوان مجتمع
-    plant = models.IntegerField(choices=PlantType.choices,default=PlantType.kerman.value)
+    plant = models.ForeignKey(PlantType, on_delete=models.CASCADE, related_name="product_plant")
     # عنوان واحد فرایندی
     processUnit = models.IntegerField(choices=ProcessUnit.choices,default=ProcessUnit.ammonia.value)
     # توضیحات
@@ -103,7 +109,7 @@ class ProductModel(models.Model):
     # تاریخ ساخت داخل
     ManufacturedData = models.DateTimeField(null=True,blank=True)
     #ساخته شده برای مجتمع 
-    ManufacturedForPlant = models.IntegerField(choices=PlantType.choices,default=PlantType.kerman.value)
+    ManufacturedForPlant = models.ForeignKey(PlantType, on_delete=models.CASCADE, related_name="product_ManufacturedForPlant")
     #صرفه جوییی ناشی از ساخت داخل 
     savingMony = models.FloatField(null=True,blank=True)
     # میزان رضایت

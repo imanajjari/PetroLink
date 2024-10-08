@@ -95,16 +95,16 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('PGDB_NAME' ,default='postgres'),                      
-        'USER': config('PGDB_USER' ,default='postgres'),
-        'PASSWORD': config('PGDB_PASSWORD' ,default='postgres'),
-        'HOST': config('PGDB_HOST' ,default='db'),
-        'PORT': config('PGDB_PORT', cast=int, default=5432),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': config('PGDB_NAME' ,default='postgres'),                      
+#         'USER': config('PGDB_USER' ,default='postgres'),
+#         'PASSWORD': config('PGDB_PASSWORD' ,default='postgres'),
+#         'HOST': config('PGDB_HOST' ,default='db'),
+#         'PORT': config('PGDB_PORT', cast=int, default=5432),
+#     }
+# }
 
 
 # Password validation

@@ -29,7 +29,8 @@ class AdminProfileEditForm(forms.ModelForm):
         fields =[
             "first_name",
             "last_name",
-            "phone_number"
+            "phone_number",
+            "plant",
         ]
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -39,5 +40,6 @@ class AdminProfileEditForm(forms.ModelForm):
         self.fields['last_name'].widget.attrs['placeholder'] = 'نام خانوادگی را وارد نمایید'
         self.fields['phone_number'].widget.attrs['class'] = 'form-control text-center'
         self.fields['phone_number'].widget.attrs['placeholder'] = 'شماره همراه را وارد نمایید'
+        self.fields['plant'].widget.attrs['class'] = 'form-select'
         
         
