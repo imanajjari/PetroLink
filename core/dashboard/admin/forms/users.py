@@ -35,7 +35,23 @@ class AdminChangePasswordUserForm(forms.ModelForm):
             self.fields['password'].widget.attrs['class'] = 'form-control text-center'
             self.fields['password'].widget.attrs['placeholder'] = "پسورد را وارد نمایید"
 
-class UserCreationForm(UserCreationForm):
+class AdminUserCreationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['email', 'is_active', 'is_verified']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['is_active'] = forms.BooleanField(initial=True, widget=forms.HiddenInput())
+        self.fields['is_verified'] = forms.BooleanField(initial=True, widget=forms.HiddenInput())
+
+        # Add custom classes to fields
+        self.fields['email'].widget.attrs['class'] = 'form-control mx-3 Disabled text-center mb-3'
+        
+        self.fields['password1'].widget.attrs['class'] = 'form-control mx-3 Disabled text-center mb-3'
+        self.fields['password2'].widget.attrs['class'] = 'form-control mx-3 Disabled text-center mb-3'
+
+class SuperUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['email', 'type', 'is_active', 'is_verified']

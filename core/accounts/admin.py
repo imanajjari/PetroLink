@@ -12,7 +12,7 @@ class CustomUserAdmin(UserAdmin):
     """
 
     model = User
-    list_display = ("id","email", "is_superuser", "is_active", "is_verified")
+    list_display = ("id","email", "is_superuser", "is_active", "is_verified","admin","plant")
     list_filter = ("email", "is_superuser", "is_active", "is_verified")
     searching_fields = ("email",)
     ordering = ("email",)
@@ -37,7 +37,7 @@ class CustomUserAdmin(UserAdmin):
         (
             "group permissions",
             {
-                "fields": ("groups", "user_permissions","type"),
+                "fields": ("groups", "user_permissions","type","admin","plant"),
             },
         ),
         (
@@ -67,7 +67,7 @@ class CustomUserAdmin(UserAdmin):
     )
 
 class CustomProfileAdmin(admin.ModelAdmin):
-    list_display = ("id","user", "first_name","last_name","phone_number")
+    list_display = ("id","user", "first_name","last_name","phone_number","admin","plant")
     searching_fields = ("user","first_name","last_name","phone_number")
 
 

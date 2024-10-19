@@ -64,8 +64,13 @@
                 aria-labelledby="accountOrdersOne-tab">
                 <!-- Select Group -->
                 <div class="d-sm-flex align-items-sm-center mb-5">
-                    <div class="mb-2 mb-sm-0 me-3">
-                        <span><strong class="text-dark">{{ total_items}} کاربران</strong></span>
+                    <div class="card-header border-bottom w-100">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="">لیست کاربران</h5>
+                            <div>
+                                <a class="btn btn-primary" href="{% url 'dashboard:admin:user-create' %}">ایجاد کاربر</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- End Select Group -->

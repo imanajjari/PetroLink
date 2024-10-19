@@ -223,7 +223,7 @@ from accounts.models import UserManager
 
 class SuperAdminUserCreateView(LoginRequiredMixin, HasSuperAdminAccessPermission,SuccessMessageMixin,CreateView):
     template_name = "dashboard/superAdmin/users/create-user.html"
-    form_class = UserCreationForm
+    form_class = SuperUserCreationForm
     success_url = reverse_lazy("dashboard:superAdmin:home")
     success_message = 'کاربر با موفقیت ایجاد شد.'
     

@@ -57,8 +57,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_verified = models.BooleanField(default=False)
     type = models.IntegerField(
         choices=UserType.choices, default=UserType.customer.value)
-    # admin = models.ForeignKey("accounts.User", on_delete=models.SET_NULL, null=True,  blank=True,related_name="admin_user")
-    # plant = models.ForeignKey("shop.PlantType", on_delete=models.SET_NULL, null=True,  blank=True,related_name="plant_user")
+    admin = models.ForeignKey("accounts.User", on_delete=models.SET_NULL, null=True,  blank=True,related_name="admin_user")
+    plant = models.ForeignKey("shop.PlantType", on_delete=models.SET_NULL, null=True,  blank=True,related_name="plant_user")
 
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
@@ -77,7 +77,8 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=12, validators=[validate_iranian_cellphone_number])
-    plant = models.ForeignKey("shop.PlantType", on_delete=models.CASCADE, null=True, blank=True)
+    admin = models.ForeignKey("accounts.User", on_delete=models.SET_NULL, null=True,  blank=True)
+    plant = models.ForeignKey("shop.PlantType", on_delete=models.SET_NULL, null=True, blank=True)
     image = models.ImageField(upload_to="profile/",default="/user.png")
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
@@ -90,5 +91,5 @@ class Profile(models.Model):
 @receiver(post_save,sender=User)
 def create_profile(sender,instance,created,**kwargs):
     if created:
-        Profile.objects.create(user=instance, pk=instance.pk)
+        Profile.objects.create(user=instance, pk=instance.pk, admin=instance.admin, plant=instance.plant)
         

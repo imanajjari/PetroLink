@@ -79,3 +79,18 @@ class UserUpdateView(LoginRequiredMixin,HasAdminAccessPermission,SuccessMessageM
     
     def get_queryset(self):
         return User.objects.filter(is_superuser=False,type=UserType.customer.value)
+
+
+class UserCreateView(LoginRequiredMixin,HasAdminAccessPermission,SuccessMessageMixin, CreateView):
+    template_name = "dashboard/admin/users/user-create.html"
+    form_class = AdminUserCreationForm
+    success_url = reverse_lazy("dashboard:admin:user-create")
+    success_message = 'کاربر با موفقیت ایجاد شد.'
+
+    def form_valid(self, form):
+        admin = Profile.objects.get(user=self.request.user)
+        user = form.save(commit=False)
+        user.admin = admin.user
+        user.plant = admin.plant
+        user.save()
+        return super().form_valid(form)
