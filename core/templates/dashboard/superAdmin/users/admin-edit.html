@@ -22,7 +22,7 @@
             <h5 class="">ویرایش ادمین</h5>
             <div>
                 <a class="btn btn-primary" href="{% url 'dashboard:superAdmin:profile-edit' pk=object.pk %}">تغییر مشخصات</a>
-                <a class="btn btn-primary" href="{% url 'dashboard:superAdmin:security-edit' %}">تغیرر رمز عبور</a>
+                <a class="btn btn-primary" href="{% url 'dashboard:superAdmin:admin-security-edit' pk=object.pk %}">تغیرر رمز عبور</a>
             </div>
         </div>
     </div>

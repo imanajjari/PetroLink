@@ -9,6 +9,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
+from django.views.generic.edit import CreateView
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from dashboard.permissions import *
@@ -159,11 +160,34 @@ class AdminCreateView(LoginRequiredMixin, HasSuperAdminAccessPermission, Success
 
 # profile admins
 
-class AdminSecurityEditView(LoginRequiredMixin, HasSuperAdminAccessPermission,SuccessMessageMixin, auth_views.PasswordChangeView):
-    template_name = "dashboard/superAdmin/profile/security-edit.html"
-    form_class = AdminPasswordChangeForm
-    success_url = reverse_lazy("dashboard:superAdmin:security-edit")
+class AdminSecurityEditUserView(LoginRequiredMixin, HasSuperAdminAccessPermission, SuccessMessageMixin, UpdateView):
+    print("constarctor")
+    template_name = "dashboard/superAdmin/users/admin-security-edit.html"
+    form_class = AdminChangePasswordUserForm
+    model = User
+    success_url = reverse_lazy("dashboard:superAdmin:admin-list")
     success_message = "بروز رسانی پسورد با موفقیت انجام شد"
+
+    def get_object(self, queryset=None):
+        print("set obj")
+        return User.objects.get(pk=self.kwargs.get("pk"))
+
+    # # def test_func(self):
+    # #     return self.request.user.is_superuser
+
+    def form_valid(self, form):
+        print("form_valid")
+        user = form.save(commit=False)
+        user.set_password(form.cleaned_data['password'])
+        user.save()
+        messages.success(self.request,'رمز عبور کاربر با موفقیت تغییر یافت.')
+        super().form_valid(form)
+        return redirect(self.success_url)
+
+    def form_invalid(self, form):
+        print("form_invalid")
+        messages.error(self.request,"ارسال تصویر با مشکل مواجه شده لطف مجدد بررسی و تلاش نمایید")
+        return redirect(self.success_url)
 
 
 class AdminProfileEditView(LoginRequiredMixin, HasSuperAdminAccessPermission,SuccessMessageMixin,UpdateView):
@@ -193,3 +217,35 @@ class AdminProfileImageEditView(LoginRequiredMixin, HasSuperAdminAccessPermissio
     def form_invalid(self, form):
         messages.error(self.request,"ارسال تصویر با مشکل مواجه شده لطف مجدد بررسی و تلاش نمایید")
         return redirect(self.success_url)
+
+
+from accounts.models import UserManager
+
+class SuperAdminUserCreateView(LoginRequiredMixin, HasSuperAdminAccessPermission,SuccessMessageMixin,CreateView):
+    template_name = "dashboard/superAdmin/users/create-user.html"
+    form_class = UserCreationForm
+    success_url = reverse_lazy("dashboard:superAdmin:home")
+    success_message = "بروز رسانی پروفایل با موفقیت انجام شد"
+    
+    # def form_valid(self, form):
+    #     # user = form.save()
+    #     # email = form.cleaned_data['email']
+    #     # password1 = form.cleaned_data['password1']
+    #     # password2 = form.cleaned_data['password2']
+    #     # type = form.cleaned_data['type']
+    #     UserManager.create_user('4@gmail.com', 'Iph@ne1394')
+    #     messages.success(self.request, 'کاربر با موفقیت ایجاد شد.')
+    #     return super().form_valid(form)
+
+    def form_valid(self, form):
+        user = form.save()
+        messages.success(self.request, 'کاربر با موفقیت ایجاد شد.')
+        return super().form_valid(form)
+
+# from django.contrib.auth.forms import UserCreationForm
+
+# class SuperAdminUserCreateView(LoginRequiredMixin, HasSuperAdminAccessPermission,SuccessMessageMixin,CreateView):
+#     form_class = UserCreationForm
+#     success_url = reverse_lazy("dashboard:superAdmin:home")
+#   # یا هر صفحه دیگری که پس از ثبت نام نمایش داده می شود
+#     template_name = "dashboard/superAdmin/users/create-user.html"

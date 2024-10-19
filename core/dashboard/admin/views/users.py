@@ -36,7 +36,7 @@ class UserListView(LoginRequiredMixin,HasAdminAccessPermission, ListView):
     
 
     def get_queryset(self):
-        queryset = User.objects.filter(is_superuser=False,type=UserType.customer.value).order_by("-created_date")
+        queryset = User.objects.filter(is_superuser=False,type=UserType.customer.value, admin=self.request.user).order_by("-created_date")
         search_query = self.request.GET.get('q', None)
         ordering_query = self.request.GET.get('ordering', None)
 

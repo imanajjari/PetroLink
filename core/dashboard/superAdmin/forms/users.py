@@ -4,6 +4,10 @@ from django.utils.translation import gettext_lazy as _
 from accounts.models import Profile
 
 User = get_user_model()
+
+
+
+
 class UserForm(forms.ModelForm):
     error_messages = {
         "password_incorrect": _(
@@ -27,3 +31,11 @@ class UserForm(forms.ModelForm):
         
         self.fields['is_active'].widget.attrs['class'] = 'form-check-input mb-3'
         self.fields['is_verified'].widget.attrs['class'] = 'form-check-input mb-3'
+
+class AdminChangePasswordUserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['password']
+        widgets = {
+            'password': forms.PasswordInput()
+        }

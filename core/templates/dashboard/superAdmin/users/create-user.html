@@ -1,0 +1,82 @@
+{% extends 'dashboard/superAdmin/base.html' %}
+{% load static %}
+
+{% block breadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-light mb-0">
+        <li class="breadcrumb-item">حساب</li>
+        <li class="breadcrumb-item">داشبورد سوپر ادمین</li>
+        <li class="breadcrumb-item">کاربران</li>
+        <li class="breadcrumb-item active" aria-current="page">
+             ایجاد کاربر
+        </li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <!-- Header -->
+    <div class="card-header border-bottom">
+        <div class="d-flex justify-content-between align-items-center">
+            <h5 class=""> ایجاد حساب</h5>
+        </div>
+    </div>
+    <!-- End Header -->
+
+    <!-- Body -->
+    <form action="." method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="card-body">
+            <!-- Form -->
+            <div class="row mb-4">
+                <label for="emailLabel" class="col-sm-3 col-form-label form-label">نام کاربری</label>
+
+                <div class="col-sm-5">
+                    {{form.email}}
+                </div>
+            </div>
+            <!-- End Form -->
+             <!-- Form -->
+            <div class="row mb-4">
+                <label for="emailLabel" class="col-sm-3 col-form-label form-label">رمز</label>
+
+                <div class="col-sm-5">
+                    {{form.password1}}
+                </div>
+            </div>
+            <!-- End Form -->
+             <!-- Form -->
+            <div class="row mb-4">
+                <label for="emailLabel" class="col-sm-3 col-form-label form-label">رمز</label>
+
+                <div class="col-sm-5">
+                    {{form.password2}}
+                </div>
+            </div>
+            <!-- End Form -->
+             <!-- Form -->
+                {{form.is_active}}
+            <!-- End Form -->
+             <!-- Form -->
+                {{form.is_verified}}
+
+            <!-- End Form -->
+             <!-- Form -->
+            <div class="row mb-4">
+                <label for="emailLabel" class="col-sm-3 col-form-label form-label">نوع حساب </label>
+
+                <div class="col-sm-5">
+                    {{form.type}}
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class=" d-flex pt-5 justify-content-end">
+                    <a class="btn btn-secondary ms-3" href="{% url 'dashboard:superAdmin:user-list' %}">بازگشت</a>
+                    <button class="btn btn-primary ms-3" type="submit">ثبت تغییرات</button>
+                </div>
+            </div>
+    </form>
+</div>
+
+{% endblock %}

@@ -5,7 +5,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb breadcrumb-light mb-0">
         <li class="breadcrumb-item">حساب</li>
-        <li class="breadcrumb-item"> داشبورد ادمین</li>
+        <li class="breadcrumb-item"> داشبورد سوپر ادمین</li>
         <li class="breadcrumb-item active" aria-current="page">
             تنظیمات امنیتی
         </li>
@@ -23,37 +23,18 @@
     <!-- Body -->
     <div class="card-body">
         <!-- Form -->
-        <form action="." method="post">
+        <form action="{% url 'dashboard:superAdmin:admin-security-edit' pk=object.pk  %}" method="post">
             {% csrf_token %}
-            <!-- Form -->
-            <div class="row mb-4">
-                <label for="currentPasswordLabel" class="col-sm-3 col-form-label form-label">رمز عبور فعلی</label>
-
-                <div class="col-sm-9">
-                    {{form.old_password}}
-                </div>
-            </div>
-            <!-- End Form -->
 
             <!-- Form -->
             <div class="row mb-4">
-                <label for="newPassword" class="col-sm-3 col-form-label form-label">رمز عبور جدید</label>
-
-                <div class="col-sm-9">
-                    {{form.new_password1}}
-                </div>
-                
-            </div>
-            <!-- End Form -->
-
-            <!-- Form -->
-            <div class="row mb-4">
-                <label for="confirmNewPasswordLabel" class="col-sm-3 col-form-label form-label">رمز عبور جدید را
-                    تایید کنید</label>
+                <label for="confirmNewPasswordLabel" class="col-sm-3 col-form-label form-label">
+                رمز عبور جدید را وارد کنید
+            </label>
 
                 <div class="col-sm-9">
                     <div class="mb-3">
-                        {{form.new_password2}}
+                        {{form.password}}
                     </div>
 
                     <h5>الزامات رمز عبور:</h5>

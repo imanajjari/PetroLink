@@ -10,8 +10,6 @@ class DashboardHomeView(LoginRequiredMixin,View):
     def dispatch(self, request,*args, **kwargs):
         if request.user.is_authenticated:
             # simple example of print for fix code
-            # print(f'\n\n\n\n{request.user.type}')
-            # print(f'\n\n\n\n{UserType.customer.value}')
             if request.user.type == UserType.customer.value:
                 return redirect(reverse_lazy('dashboard:customer:home'))
             if request.user.type == UserType.admin.value:
