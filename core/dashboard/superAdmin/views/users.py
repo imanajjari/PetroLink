@@ -225,27 +225,10 @@ class SuperAdminUserCreateView(LoginRequiredMixin, HasSuperAdminAccessPermission
     template_name = "dashboard/superAdmin/users/create-user.html"
     form_class = UserCreationForm
     success_url = reverse_lazy("dashboard:superAdmin:home")
-    success_message = "بروز رسانی پروفایل با موفقیت انجام شد"
+    success_message = 'کاربر با موفقیت ایجاد شد.'
     
     # def form_valid(self, form):
-    #     # user = form.save()
-    #     # email = form.cleaned_data['email']
-    #     # password1 = form.cleaned_data['password1']
-    #     # password2 = form.cleaned_data['password2']
-    #     # type = form.cleaned_data['type']
-    #     UserManager.create_user('4@gmail.com', 'Iph@ne1394')
+    #     user = form.save()
     #     messages.success(self.request, 'کاربر با موفقیت ایجاد شد.')
     #     return super().form_valid(form)
 
-    def form_valid(self, form):
-        user = form.save()
-        messages.success(self.request, 'کاربر با موفقیت ایجاد شد.')
-        return super().form_valid(form)
-
-# from django.contrib.auth.forms import UserCreationForm
-
-# class SuperAdminUserCreateView(LoginRequiredMixin, HasSuperAdminAccessPermission,SuccessMessageMixin,CreateView):
-#     form_class = UserCreationForm
-#     success_url = reverse_lazy("dashboard:superAdmin:home")
-#   # یا هر صفحه دیگری که پس از ثبت نام نمایش داده می شود
-#     template_name = "dashboard/superAdmin/users/create-user.html"

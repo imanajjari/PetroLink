@@ -10,29 +10,29 @@ from django.shortcuts import redirect
 from django.contrib import messages
 
 
-class AdminSecurityEditView(LoginRequiredMixin, HasSuperAdminAccessPermission,SuccessMessageMixin, auth_views.PasswordChangeView):
+class SuperAdminSecurityEditView(LoginRequiredMixin, HasSuperAdminAccessPermission,SuccessMessageMixin, auth_views.PasswordChangeView):
     template_name = "dashboard/superAdmin/profile/security-edit.html"
     form_class = AdminPasswordChangeForm
-    success_url = reverse_lazy("dashboard:admin:security-edit")
+    success_url = reverse_lazy("dashboard:superAdmin:super-admin-security-edit")
     success_message = "بروز رسانی پسورد با موفقیت انجام شد"
 
 
-class AdminProfileEditView(LoginRequiredMixin, HasSuperAdminAccessPermission,SuccessMessageMixin,UpdateView):
+class SuperAdminProfileEditView(LoginRequiredMixin, HasSuperAdminAccessPermission,SuccessMessageMixin,UpdateView):
     template_name = "dashboard/superAdmin/profile/profile-edit.html"
     form_class = AdminProfileEditForm
-    success_url = reverse_lazy("dashboard:admin:profile-edit")
+    success_url = reverse_lazy("dashboard:superAdmin:super-admin-profile-edit")
     success_message = "بروز رسانی پروفایل با موفقیت انجام شد"
     
     def get_object(self, queryset=None):
         return Profile.objects.get(user=self.request.user)
 
-class AdminProfileImageEditView(LoginRequiredMixin, HasSuperAdminAccessPermission,SuccessMessageMixin,UpdateView):
+class SuperAdminProfileImageEditView(LoginRequiredMixin, HasSuperAdminAccessPermission,SuccessMessageMixin,UpdateView):
     http_method_names=["post"]
     model = Profile
     fields= [
         "image"
     ]
-    success_url = reverse_lazy("dashboard:admin:profile-edit")
+    success_url = reverse_lazy("dashboard:superAdmin:super-admin-profile-edit")
     success_message = "بروز رسانی تصویر پروفایل با موفقیت انجام شد"
     
     def get_object(self, queryset=None):

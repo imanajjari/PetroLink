@@ -83,7 +83,7 @@
                 <label for="emailLabel" class="col-sm-3 col-form-label form-label">ایمیل</label>
 
                 <div class="col-sm-9">
-                    <input type="email" class="form-control text-center" value="{{request.user.email}}" disabled>
+                    <input type="email" class="form-control text-center" value="{{object.user.email}}" disabled>
                 </div>
             </div>
             <!-- End Form -->
@@ -120,7 +120,7 @@
         <!-- Footer -->
         <div class="card-footer pt-0">
             <div class="d-flex justify-content-end gap-3">
-                <a class="btn btn-danger" href="{% url 'dashboard:superAdmin:profile-edit' %}">لغو</a>
+                <a class="btn btn-danger" href="{% url 'dashboard:superAdmin:profile-edit' pk=object.pk  %}">لغو</a>
                 <button class="btn btn-primary" type="submit">ذخیره تغییرات</button>
             </div>
         </div>
