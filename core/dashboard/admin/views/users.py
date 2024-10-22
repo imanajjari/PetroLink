@@ -36,13 +36,13 @@ class UserListView(LoginRequiredMixin,HasAdminAccessPermission, ListView):
     
 
     def get_queryset(self):
-        queryset = User.objects.filter(is_superuser=False,type=UserType.customer.value, admin=self.request.user).order_by("-created_date")
+        queryset = User.objects.filter(is_superuser=False,type=UserType.customer.value, plant=self.request.user.plant).order_by("-created_date")
         search_query = self.request.GET.get('q', None)
         ordering_query = self.request.GET.get('ordering', None)
 
         if search_query:
             queryset = queryset.filter(
-                 Q(email__icontains=search_query)
+                 Q(email__icontains=search_query)|Q(id__icontains=search_query)
             )
         if ordering_query:
             try:
@@ -94,3 +94,53 @@ class UserCreateView(LoginRequiredMixin,HasAdminAccessPermission,SuccessMessageM
         user.plant = admin.plant
         user.save()
         return super().form_valid(form)
+
+
+# profile admins
+
+class AdminSecurityEditUserView(LoginRequiredMixin, HasAdminAccessPermission, SuccessMessageMixin, UpdateView):
+    template_name = "dashboard/admin/users/admin-security-edit.html"
+    form_class = AdminChangePasswordUserForm
+    model = User
+    success_url = reverse_lazy("dashboard:admin:user-list")
+    success_message = "بروز رسانی پسورد با موفقیت انجام شد"
+
+    def get_object(self, queryset=None):
+        return User.objects.get(pk=self.kwargs.get("pk"))
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.set_password(form.cleaned_data['password'])
+        user.save()
+        messages.success(self.request,'رمز عبور کاربر با موفقیت تغییر یافت.')
+        super().form_valid(form)
+        return redirect(self.success_url)
+
+    def form_invalid(self, form):
+        messages.error(self.request,"ارسال تصویر با مشکل مواجه شده لطف مجدد بررسی و تلاش نمایید")
+        return redirect(self.success_url)
+
+class AdminProfileEditUserView(LoginRequiredMixin, HasAdminAccessPermission,SuccessMessageMixin,UpdateView):
+    template_name = "dashboard/admin/users/admin-profile-edit.html"
+    form_class = AdminProfileEditForm
+    success_url = reverse_lazy("dashboard:admin:user-list")
+    success_message = "بروز رسانی پروفایل با موفقیت انجام شد"
+    
+    def get_object(self, queryset=None):
+        return Profile.objects.get(user=self.kwargs.get("pk"))
+
+class AdminProfileImageEditUserView(LoginRequiredMixin, HasAdminAccessPermission,SuccessMessageMixin,UpdateView):
+    http_method_names=["post"]
+    model = Profile
+    fields= [
+        "image"
+    ]
+    success_url = reverse_lazy("dashboard:admin:user-list")
+    success_message = "بروز رسانی تصویر پروفایل با موفقیت انجام شد"
+    
+    def get_object(self, queryset=None):
+        return Profile.objects.get(user=self.kwargs.get("pk"))
+    
+    def form_invalid(self, form):
+        messages.error(self.request,"ارسال تصویر با مشکل مواجه شده لطف مجدد بررسی و تلاش نمایید")
+        return redirect(self.success_url)

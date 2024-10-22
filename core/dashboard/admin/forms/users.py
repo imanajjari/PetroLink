@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from shop.models import PlantType
 
 
 User = get_user_model()
@@ -38,7 +39,7 @@ class AdminChangePasswordUserForm(forms.ModelForm):
 class AdminUserCreationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['email', 'is_active', 'is_verified']
+        fields = ['email', 'plant', 'is_active', 'is_verified']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -54,10 +55,11 @@ class AdminUserCreationForm(UserCreationForm):
 class SuperUserCreationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['email', 'type', 'is_active', 'is_verified']
+        fields = ['email', 'plant', 'type', 'is_active', 'is_verified']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['plant'] = forms.ModelChoiceField(queryset=PlantType.objects.all(), required = True)
         self.fields['is_active'] = forms.BooleanField(initial=True, widget=forms.HiddenInput())
         self.fields['is_verified'] = forms.BooleanField(initial=True, widget=forms.HiddenInput())
 
@@ -68,6 +70,7 @@ class SuperUserCreationForm(UserCreationForm):
         self.fields['password1'].widget.attrs['class'] = 'form-control mx-3 Disabled text-center mb-3'
         self.fields['password2'].widget.attrs['class'] = 'form-control mx-3 Disabled text-center mb-3'
         self.fields['type'].widget.attrs['class'] = 'form-select mx-3'
+        self.fields['plant'].widget.attrs['class'] = 'form-select mx-3'
 
         
         

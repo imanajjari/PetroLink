@@ -78,7 +78,8 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">شناسه کاربر</th>
-                                    <th scope="col">ایمیل</th>
+                                    <th scope="col">نام کاربری</th>
+                                    <th scope="col">پالایشگاه</th>
                                     <th scope="col">تاریخ ثبت</th>
                                     <th scope="col">وضعیت</th>
                                     <th scope="col">عملیات</th>
@@ -91,6 +92,7 @@
                                     <th scope="row">{{forloop.counter}}</th>
                                     <td>{{object.id}}</td>
                                     <td>{{object.email}}</td>
+                                    <td>{{object.plant}}</td>
                                     <td>{{object.created_date|date:"Y-m-d h:i"}}</td>
                                     <td>
                                         {% if object.is_active %}

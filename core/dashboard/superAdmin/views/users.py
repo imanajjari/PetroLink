@@ -44,7 +44,7 @@ class UserListView(LoginRequiredMixin,HasSuperAdminAccessPermission, ListView):
 
         if search_query:
             queryset = queryset.filter(
-                 Q(email__icontains=search_query)
+                 Q(email__icontains=search_query)|Q(id__icontains=search_query)
             )
         if ordering_query:
             try:
@@ -105,7 +105,7 @@ class AdminListView(LoginRequiredMixin,HasSuperAdminAccessPermission, ListView):
 
         if search_query:
             queryset = queryset.filter(
-                 Q(email__icontains=search_query)
+                 Q(email__icontains=search_query)|Q(id__icontains=search_query)
             )
         if ordering_query:
             try:
@@ -218,8 +218,6 @@ class AdminProfileImageEditView(LoginRequiredMixin, HasSuperAdminAccessPermissio
         messages.error(self.request,"ارسال تصویر با مشکل مواجه شده لطف مجدد بررسی و تلاش نمایید")
         return redirect(self.success_url)
 
-
-from accounts.models import UserManager
 
 class SuperAdminUserCreateView(LoginRequiredMixin, HasSuperAdminAccessPermission,SuccessMessageMixin,CreateView):
     template_name = "dashboard/superAdmin/users/create-user.html"
