@@ -276,93 +276,121 @@
 
 
 <!-- files product -->
-<div class="container content-space-t-2 content-space-md-3">
-{% for product_file in object.product_files.all %}
-    <div class="swiper-slide mb-2">
-        <div class="card card-bordered shadow-none p-2">
-            <a href={{product_file.file.url}}>{{product_file.file}}</a>
+ {% if object.product_files.all %}
+ <div class="container content-space-t-2 content-space-md-3">
+     <div class="row" style=" padding:4px 12px;">
+         <table class="table">
+             <tr>
+                 <th scope="col h2">#</th>
+                 <th class="col h2">فایل ها</th>
+                </tr>
+                {% for product_file in object.product_files.all %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td><a href={{product_file.file.url}}>{{product_file.file}}</a></td>
+                </tr>
+                {% endfor %}
+            </table>
         </div>
     </div>
-{% endfor %}
-</div>
+ {% endif %}
 <!-- end files product -->
 <!-- table detail -->
 <div class="container content-space-t-2 content-space-md-3">
     <div class="row" style=" padding:4px 12px;">
-        <table style="text-align:center;">
-            <tr style="border-bottom:1px solid gray;">
-              <th>مشخصه</th>
-              <th>میزان</th>
+        <table style="text-align:center;" class="table">
+            <tr>
+              <th scope="col h2">#</th>
+              <th class="col h2">مشخصه</th>
+              <th class="col h2">میزان</th>
             </tr>
             <tr>
+                <th scope="row">1</th>
                 <td>شماره مدرک</td>
                 <td>{{object.docNo}}</td>
             </tr>
             <tr>
+                <th scope="row">2</th>
               <td>سازنده اصلی</td>
               <td>{{object.vendor}}</td>
             </tr>
             <tr>
+                <th scope="row">3</th>
               <td>شماره قطعه کارخانه اصلی سازنده</td>
               <td>{{object.manufacturerPartNo}}</td>
             </tr>
             <tr>
+                <th scope="row">4</th>
                 <td>شماره قطعه سازنده</td>
                 <td>{{object.supplierPartNo}}</td>
             </tr>
             <tr>
+                <th scope="row">5</th>
                 <td>حوزه</td>
               <td>{{object.get_discipline_display}}</td>
             </tr>
             <tr>
+                <th scope="row">6</th>
               <td>نوع تجهیزات اصلی</td>
               <td>{{object.get_equipmentType_display}}</td>
             </tr>
             <tr>
+                <th scope="row">7</th>
               <td>شماره تجهیزات</td>
               <td>{{object.equipmentTagNo}}</td>
             </tr>
             <tr>
+                <th scope="row">8</th>
               <td>عنوان مجتمع</td>
               <td>{{object.get_plant_display }}</td>
             </tr>
             <tr>
+                <th scope="row">9</th>
               <td>عنوان واحد فرایندی</td>
               <td>{{object.processUnit}}</td>
             </tr>
             <tr>
+                <th scope="row">10</th>
               <td>سابقه ساخت داخل دارد</td>
               <td>{{object.isManufactured}}</td>
             </tr>
             <tr>
+                <th scope="row">11</th>
               <td>شرکت سانده داخلی</td>
               <td>{{object.manufactured}}</td>
             </tr>
             <tr>
+                <th scope="row">12</th>
               <td>قیمت قطعه</td>
               <td>{{object.originalUnitPrice}}</td>
             </tr>
             <tr>
+                <th scope="row">13</th>
               <td>ارز</td>
               <td>{{object.get_currency_display}}</td>
             </tr>
             <tr>
+                <th scope="row">14</th>
               <td>قیمت قطعه</td>
               <td>{{object.get_exchangeRate_display}}</td>
             </tr>
             <tr>
+                <th scope="row">15</th>
               <td>تاریخ ساخت داخل</td>
               <td>{{object.ManufacturedData}}</td>
             </tr>
             <tr>
+                <th scope="row">16</th>
               <td>ساخته شده برای مجتمع</td>
               <td>{{object.get_ManufacturedForPlant_display}}</td>
             </tr>
             <tr>
+                <th scope="row">17</th>
               <td>صرفه جویی ناشی از ساخت داخل</td>
               <td>{{object.savingMony}}</td>
             </tr>
             <tr>
+                <th scope="row">18</th>
               <td>میزان رضایت</td>
               <td>{{object.Satisfaction}}</td>
             </tr>

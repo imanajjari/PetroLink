@@ -64,10 +64,10 @@ class SuperAdminProductCreateView(LoginRequiredMixin, HasSuperAdminAccessPermiss
     def form_valid(self, form):
         form.instance.user = self.request.user
         super().form_valid(form)
-        return redirect(reverse_lazy("dashboard:admin:product-edit", kwargs={"pk": form.instance.pk}))
+        return redirect(reverse_lazy("dashboard:superAdmin:product-edit", kwargs={"pk": form.instance.pk}))
 
     def get_success_url(self):
-        return reverse_lazy("dashboard:admin:product-list")
+        return reverse_lazy("dashboard:superAdmin:product-list")
 
 
 class SuperAdminProductEditView(LoginRequiredMixin, HasSuperAdminAccessPermission, SuccessMessageMixin, UpdateView):
@@ -77,7 +77,7 @@ class SuperAdminProductEditView(LoginRequiredMixin, HasSuperAdminAccessPermissio
     success_message = "ویرایش محصول با موفقیت انجام شد"
 
     def get_success_url(self):
-        return reverse_lazy("dashboard:admin:product-edit", kwargs={"pk": self.get_object().pk})
+        return reverse_lazy("dashboard:superAdmin:product-edit", kwargs={"pk": self.get_object().pk})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -94,7 +94,7 @@ class SuperAdminProductEditView(LoginRequiredMixin, HasSuperAdminAccessPermissio
 class SuperAdminProductDeleteView(LoginRequiredMixin, HasSuperAdminAccessPermission, SuccessMessageMixin, DeleteView):
     template_name = "dashboard/superAdmin/products/product-delete.html"
     queryset = ProductModel.objects.all()
-    success_url = reverse_lazy("dashboard:admin:product-list")
+    success_url = reverse_lazy("dashboard:superAdmin:product-list")
     success_message = "حذف محصول با موفقیت انجام شد"
 
 
@@ -103,7 +103,7 @@ class SuperAdminProductAddImageView(LoginRequiredMixin, HasSuperAdminAccessPermi
     form_class = ProductImageForm
 
     def get_success_url(self):
-        return reverse_lazy('dashboard:admin:product-edit', kwargs={'pk': self.kwargs.get('pk')})
+        return reverse_lazy('dashboard:superAdmin:product-edit', kwargs={'pk': self.kwargs.get('pk')})
 
     def get_queryset(self):
         return ProductImageModel.objects.filter(product__id=self.kwargs.get('pk'))
@@ -120,7 +120,7 @@ class SuperAdminProductAddImageView(LoginRequiredMixin, HasSuperAdminAccessPermi
         # handle unsuccessful form submission
         messages.error(
             self.request, 'اشکالی در ارسال تصویر رخ داد لطفا مجدد امتحان نمایید')
-        return redirect(reverse_lazy('dashboard:admin:product-edit', kwargs={'pk': self.kwargs.get('pk')}))
+        return redirect(reverse_lazy('dashboard:superAdmin:product-edit', kwargs={'pk': self.kwargs.get('pk')}))
 
 
 class SuperAdminProductRemoveImageView(LoginRequiredMixin, HasSuperAdminAccessPermission, SuccessMessageMixin, DeleteView):
@@ -134,12 +134,12 @@ class SuperAdminProductRemoveImageView(LoginRequiredMixin, HasSuperAdminAccessPe
         return self.get_queryset().get(pk=self.kwargs.get('image_id'))
 
     def get_success_url(self):
-        return reverse_lazy('dashboard:admin:product-edit', kwargs={'pk': self.kwargs.get('pk')})
+        return reverse_lazy('dashboard:superAdmin:product-edit', kwargs={'pk': self.kwargs.get('pk')})
 
     def form_invalid(self, form):
         messages.error(
             self.request, 'اشکالی در حذف تصویر رخ داد لطفا مجدد امتحان نمایید')
-        return redirect(reverse_lazy('dashboard:admin:product-edit', kwargs={'pk': self.kwargs.get('pk')}))
+        return redirect(reverse_lazy('dashboard:superAdmin:product-edit', kwargs={'pk': self.kwargs.get('pk')}))
 
 
 
@@ -156,7 +156,7 @@ class SuperAdminProductAddFileView(LoginRequiredMixin, HasSuperAdminAccessPermis
     form_class = ProductFileForm
 
     def get_success_url(self):
-        return reverse_lazy('dashboard:admin:product-edit', kwargs={'pk': self.kwargs.get('pk')})
+        return reverse_lazy('dashboard:superAdmin:product-edit', kwargs={'pk': self.kwargs.get('pk')})
 
     def get_queryset(self):
         return ProductFileModel.objects.filter(product__id=self.kwargs.get('pk'))
@@ -173,7 +173,7 @@ class SuperAdminProductAddFileView(LoginRequiredMixin, HasSuperAdminAccessPermis
         # handle unsuccessful form submission
         messages.error(
             self.request, 'اشکالی در ارسال فایل رخ داد لطفا مجدد امتحان نمایید')
-        return redirect(reverse_lazy('dashboard:admin:product-edit', kwargs={'pk': self.kwargs.get('pk')}))
+        return redirect(reverse_lazy('dashboard:superAdmin:product-edit', kwargs={'pk': self.kwargs.get('pk')}))
 
 
 class SuperAdminProductRemoveFileView(LoginRequiredMixin, HasSuperAdminAccessPermission, SuccessMessageMixin, DeleteView):
@@ -187,10 +187,10 @@ class SuperAdminProductRemoveFileView(LoginRequiredMixin, HasSuperAdminAccessPer
         return self.get_queryset().get(pk=self.kwargs.get('file_id'))
 
     def get_success_url(self):
-        return reverse_lazy('dashboard:admin:product-edit', kwargs={'pk': self.kwargs.get('pk')})
+        return reverse_lazy('dashboard:superAdmin:product-edit', kwargs={'pk': self.kwargs.get('pk')})
 
     def form_invalid(self, form):
         messages.error(
             self.request, 'اشکالی در حذف فایل رخ داد لطفا مجدد امتحان نمایید')
-        return redirect(reverse_lazy('dashboard:admin:product-edit', kwargs={'pk': self.kwargs.get('pk')}))
+        return redirect(reverse_lazy('dashboard:superAdmin:product-edit', kwargs={'pk': self.kwargs.get('pk')}))
 
