@@ -154,6 +154,7 @@ class ProductImageModel(models.Model):
         ordering = ["-created_date"]
 
 class ProductFileModel(models.Model):
+    title = models.CharField(max_length=128, null=True , blank=True)
     product = models.ForeignKey(ProductModel,on_delete=models.CASCADE,related_name="product_files")
     file = models.FileField(upload_to="product/files/")
     

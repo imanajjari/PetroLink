@@ -84,7 +84,7 @@
                             <th scope="col">#</th>
                             <th scope="col">نام محصول</th>
                             <th scope="col">نام ادمین</th>
-                            <th scope="col">نام پتروشیمی</th>
+                            <th scope="col">پالایشگاه</th>
                             <th scope="col">دسته بندی</th>
                             <th scope="col">قیمت</th>
                             <th scope="col">تعداد</th>
@@ -99,7 +99,7 @@
                             <th scope="row">{{object.id}}</th>
                             <td>{{object.title}}</td>
                             <td>{{object.user}}</td>
-                            <td>{{object.user}}</td>
+                            <td>{{object.plant}}</td>
                             <td>{% for category in object.category.all %} {{category.title}}
                                 {% if not forloop.last %},{% endif %} {% endfor %}</td>
                             <td>{{object.price}}</td>

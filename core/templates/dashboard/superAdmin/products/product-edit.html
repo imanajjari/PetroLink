@@ -248,6 +248,10 @@
                 {% csrf_token %}
                 <div class="card-body">
                     <div class="row d-flex align-items-center">
+                        <div class="col-md-6 mb-3">
+                            <label>نام فایل</label>
+                            {{file_form.title}}
+                        </div>
                         <div class="col-md-9 mb-3 d-flex align-items-center">
                             <label>فایل محصول</label>
                             {{file_form.file}}
@@ -265,7 +269,7 @@
                 <div class="row d-flex ">
                     {% for product_file in object.product_files.all %}
                     <div class="col-md-2">
-                            <a href={{product_file.file.url}}>{{product_file.file}}</a>
+                            <a href={{product_file.file.url}}>{{product_file.title}}</a>
                         <form action="{% url 'dashboard:superAdmin:product-remove-file' pk=object.pk file_id=product_file.pk %}" method="post">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-danger btn-sm">حذف فایل</button>

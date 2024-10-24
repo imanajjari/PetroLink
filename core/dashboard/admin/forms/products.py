@@ -1,7 +1,7 @@
 from django import forms
 from shop.models import ProductModel,ProductImageModel,ProductFileModel
 class ProductForm(forms.ModelForm):
-
+    ManufacturedData = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class': 'form-control','type':'datetime-local'}))
 
     class Meta:
         model = ProductModel
@@ -64,7 +64,7 @@ class ProductForm(forms.ModelForm):
         self.fields['originalUnitPrice'].widget.attrs['class'] = 'form-control'
         self.fields['currency'].widget.attrs['class'] = 'form-select'
         self.fields['exchangeRate'].widget.attrs['class'] = 'form-select'
-        # self.fields['ManufacturedData'].widget.attrs['class'] = 'form-control'
+        self.fields['ManufacturedData'].widget.attrs['class'] = 'form-control'
         self.fields['ManufacturedForPlant'].widget.attrs['class'] = 'form-select'
         self.fields['savingMony'].widget.attrs['class'] = 'form-control'
         self.fields['Satisfaction'].widget.attrs['class'] = 'form-control'
@@ -91,10 +91,12 @@ class ProductFileForm(forms.ModelForm):
     class Meta:
         model = ProductFileModel
         fields = [
+            "title",
             "file",
         ]
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['title'].widget.attrs['class'] = 'form-control'
         self.fields['file'].widget.attrs['class'] = 'form-control'
         # self.fields['file'].widget.attrs['accept'] = 'image/png, image/jpg, image/jpeg'
