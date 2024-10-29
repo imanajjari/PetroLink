@@ -607,10 +607,8 @@
             });
         }
         function addToWishlist(element,product_id) {
-     
-            //console.log(product_id)
             $.ajax({
-                {% comment %} url: "{%  url 'shop:add-or-remove-wishlist' %}",  {% endcomment %}
+                url: "{%  url 'shop:add-or-remove-wishlist' %}",
                 method: 'POST',
                 data: {
                     product_id: product_id,
