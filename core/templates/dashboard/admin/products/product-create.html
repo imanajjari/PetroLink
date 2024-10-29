@@ -56,7 +56,8 @@
                 </div>
                 <div class="col-md-6 mb-3">
                     <label>slug محصول - <button class="small-primary-button" type="button"
-                        onclick="generateSlug()">ساخت slug</button> </label>
+                            onclick="generateSlug()">ساخت
+                            slug</button> </label>
                     {{form.slug}}
                 </div>
                 <div class="col-md-6 mb-3">
@@ -81,6 +82,97 @@
                     {{form.discount_percent}}
                 </div>
 
+
+                <div class="col-md-6 mb-3">
+                    <label>شماره مدرک</label>
+                    {{form.docNo}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>کد کالا</label>
+                    {{form.mesc_code}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>شماره ویرایش مدرک</label>
+                    {{form.doc_ver}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>سازنده اصلی</label>
+                    {{form.vendor}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>تاریخ تهیه مدرک</label>
+                    {{form.docData}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>سازنده اصلی</label>
+                    {{form.equipmentTagNo}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>شماره قطعه کارخانه اصلی سازنده</label>
+                    {{form.manufacturerPartNo}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>شماره قطعه سارنده</label>
+                    {{form.supplierPartNo}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>حوزه</label>
+                    {{form.discipline}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>نوع تجهیزات اصلی</label>
+                    {{form.equipmentType}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>شماره تجهیزات</label>
+                    {{form.equipmentTagNo}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>عنوان مجتمع</label>
+                    {{form.plant}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>عنوان واحد فرایندی</label>
+                    {{form.processUnit}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>سابقه ساخت داخل دارد؟</label>
+                    {{form.isManufactured}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>شرکت سازنده داخلی</label>
+                    {{form.manufactured}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>قیمت قطعه (دلار)</label>
+                    {{form.originalUnitPrice}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>ارز</label>
+                    {{form.currency}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>نرخ تبدیل ارز در زمان ساخت داخل</label>
+                    {{form.exchangeRate}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>تاریخ ساخت داخل</label>
+                    {{form.ManufacturedData}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>ساخته شده برای مجتمع</label>
+                    {{form.ManufacturedForPlant}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>صرفه جویی ناشی از ساخت</label>
+                    {{form.savingMony}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>میزان رضایت</label>
+                    {{form.Satisfaction}}
+                </div>
+
+
                 <div class="col-md-12 mb-3">
                     <label>توضیح کوتاه</label>
                     {{form.brief_description}}
@@ -99,7 +191,7 @@
             </div>
             <div class="card-footer">
                 <div class=" d-flex pt-5 justify-content-end">
-                    <a class="btn btn-secondary ms-3" href="{% url 'dashboard:admin:product-list' %}">بازگشت</a>
+                    <a class="btn btn-secondary ms-3" href="{% url 'dashboard:superAdmin:product-list' %}">بازگشت</a>
                     <button class="btn btn-primary ms-3" type="submit">ایجاد محصول</button>
                 </div>
             </div>

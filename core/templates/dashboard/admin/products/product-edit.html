@@ -67,7 +67,7 @@
                             <label>تعداد</label>
                             {{form.stock}}
                         </div>
-
+        
                         <div class="col-md-6 mb-3">
                             <label>وضعیت</label>
                             {{form.status}}
@@ -84,11 +84,27 @@
                             <label>درصد تخفیف</label>
                             {{form.discount_percent}}
                         </div>
-
-
+        
+        
                         <div class="col-md-6 mb-3">
                             <label>شماره مدرک</label>
                             {{form.docNo}}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>کد کالا</label>
+                            {{form.mesc_code}}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>شماره ویرایش مدرک</label>
+                            {{form.doc_ver}}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>سازنده اصلی</label>
+                            {{form.vendor}}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>تاریخ تهیه مدرک</label>
+                            {{form.docData}}
                         </div>
                         <div class="col-md-6 mb-3">
                             <label>سازنده اصلی</label>
@@ -158,8 +174,8 @@
                             <label>میزان رضایت</label>
                             {{form.Satisfaction}}
                         </div>
-
-
+        
+        
                         <div class="col-md-12 mb-3">
                             <label>توضیح کوتاه</label>
                             {{form.brief_description}}
@@ -168,23 +184,21 @@
                             <label>توضیحات</label>
                             {{form.description}}
                         </div>
-
+        
                         <div class="col-md-12 mb-3">
                             <label for="validationValidFileInput1">تصویر محصول</label>
                             {{form.image}}
                         </div>
-
-
+        
+        
                     </div>
                     <div class="card-footer">
                         <div class=" d-flex pt-5 justify-content-end">
-                            <a class="btn btn-danger ms-3"
-                                href="{% url 'dashboard:admin:product-delete' pk=object.pk %}">حذف</a>
-                            <a class="btn btn-secondary ms-3" href="{% url 'dashboard:admin:product-list' %}">بازگشت</a>
-                            <button class="btn btn-primary ms-3" type="submit">ثبت تغییرات</button>
+                            <a class="btn btn-secondary ms-3" href="{% url 'dashboard:superAdmin:product-list' %}">بازگشت</a>
+                            <button class="btn btn-primary ms-3" type="submit">ایجاد محصول</button>
                         </div>
                     </div>
-            </form>
+                    </form>
         </div>
     </div>
     <div>

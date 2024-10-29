@@ -29,14 +29,16 @@ class UserListView(LoginRequiredMixin,HasAdminAccessPermission, ListView):
     ordering = "-created_date"
 
     def get_paginate_by(self, queryset):
-        """
-        Paginate by specified value in querystring, or use default class property value.
-        """
-        return self.request.GET.get('paginate_by', self.paginate_by)
+        return self.request.GET.get('page_size', self.paginate_by)
     
-
     def get_queryset(self):
-        queryset = User.objects.filter(is_superuser=False,type=UserType.customer.value, plant=self.request.user.plant).order_by("-created_date")
+        queryset = User.objects.filter(is_superuser=False,type=UserType.customer.value, plant=self.request.user.plant)
+        if order_by := self.request.GET.get("order_by"):
+            try:
+                queryset = queryset.order_by(order_by)
+            except FieldError:
+                pass
+
         search_query = self.request.GET.get('q', None)
         ordering_query = self.request.GET.get('ordering', None)
 
@@ -88,13 +90,14 @@ class UserCreateView(LoginRequiredMixin,HasAdminAccessPermission,SuccessMessageM
     success_message = 'کاربر با موفقیت ایجاد شد.'
 
     def form_valid(self, form):
+        super().form_valid(form)
         admin = Profile.objects.get(user=self.request.user)
         user = form.save(commit=False)
         user.admin = admin.user
         user.plant = admin.plant
         user.save()
-        return super().form_valid(form)
-
+        user = User.objects.get(email=form.cleaned_data['email'])
+        return redirect("dashboard:admin:admin-profile-edit", pk=user.id)
 
 # profile admins
 

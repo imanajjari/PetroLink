@@ -31,14 +31,17 @@ class UserListView(LoginRequiredMixin,HasSuperAdminAccessPermission, ListView):
     ordering = "-created_date"
 
     def get_paginate_by(self, queryset):
-        """
-        Paginate by specified value in querystring, or use default class property value.
-        """
-        return self.request.GET.get('paginate_by', self.paginate_by)
+        return self.request.GET.get('page_size', self.paginate_by)
     
 
     def get_queryset(self):
         queryset = User.objects.filter(type=UserType.customer.value).order_by("-created_date")
+        if order_by := self.request.GET.get("order_by"):
+            try:
+                queryset = queryset.order_by(order_by)
+            except FieldError:
+                pass
+
         search_query = self.request.GET.get('q', None)
         ordering_query = self.request.GET.get('ordering', None)
 
@@ -95,11 +98,17 @@ class AdminListView(LoginRequiredMixin,HasSuperAdminAccessPermission, ListView):
         """
         Paginate by specified value in querystring, or use default class property value.
         """
-        return self.request.GET.get('paginate_by', self.paginate_by)
+        return self.request.GET.get('page_size', self.paginate_by)
     
 
     def get_queryset(self):
         queryset = User.objects.filter(type=UserType.admin.value).order_by("-created_date")
+        if order_by := self.request.GET.get("order_by"):
+            try:
+                queryset = queryset.order_by(order_by)
+            except FieldError:
+                pass
+
         search_query = self.request.GET.get('q', None)
         ordering_query = self.request.GET.get('ordering', None)
 
@@ -172,9 +181,6 @@ class AdminSecurityEditUserView(LoginRequiredMixin, HasSuperAdminAccessPermissio
         print("set obj")
         return User.objects.get(pk=self.kwargs.get("pk"))
 
-    # # def test_func(self):
-    # #     return self.request.user.is_superuser
-
     def form_valid(self, form):
         print("form_valid")
         user = form.save(commit=False)
@@ -225,8 +231,8 @@ class SuperAdminUserCreateView(LoginRequiredMixin, HasSuperAdminAccessPermission
     success_url = reverse_lazy("dashboard:superAdmin:home")
     success_message = 'کاربر با موفقیت ایجاد شد.'
     
-    # def form_valid(self, form):
-    #     user = form.save()
-    #     messages.success(self.request, 'کاربر با موفقیت ایجاد شد.')
-    #     return super().form_valid(form)
+    def form_valid(self, form):
+        super().form_valid(form)  # ابتدا فرم ذخیره شود
+        user = User.objects.get(email=form.cleaned_data['email'])  # دریافت کاربر ایجاد شده
+        return redirect("dashboard:superAdmin:profile-edit", pk=user.id)  # ریدایرکت به پروفایل
 

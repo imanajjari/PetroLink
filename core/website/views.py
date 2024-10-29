@@ -13,8 +13,11 @@ class ContactView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["admins"] = User.objects.filter(plant=self.request.user.plant, type=UserType.admin.value)
-        print(context["admins"])
+        if self.request.user.type == UserType.customer.value :
+            context["admins"] = User.objects.filter(plant=self.request.user.plant, type=UserType.admin.value)
+        if self.request.user.type == UserType.admin.value :
+            context["admins"] = User.objects.filter(type=UserType.superuser.value)
+        
         return context
 
 class AboutView(TemplateView):

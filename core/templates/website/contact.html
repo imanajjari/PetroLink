@@ -9,7 +9,11 @@
             <h1>تماس با ما</h1>
             <p>نظرات و انتقادات خود را بیان کنین</p>
             <div>
+                {% if request.user.type == 1 %}
                 <h3 class="pb-2 mb-5 mt-10 border-bottom">لیست ادمین های {{request.user.plant}}</h3>
+                {% else %}
+                <h3 class="pb-2 mb-5 mt-10 border-bottom">لیست سوپر ادمین ها</h3>
+                {% endif %}
                 {% for admin in admins %}
                 <div class="d-flex justify-content-between">
                     <p>{{admin.user_profile.get_fullname}}</p>
