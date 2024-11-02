@@ -28,6 +28,7 @@ urlpatterns = [
     path('dashboard/', include('dashboard.urls', namespace='dashboard')),
     path('shop/', include('shop.urls', namespace='shop')),
     path('payment/', include('payment.urls', namespace='payment')),
+    path('review/', include('review.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

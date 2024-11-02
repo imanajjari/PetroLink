@@ -677,7 +677,7 @@
             </div>
 
             <div class="modal-body">
-                {% comment %} <form action="{% url 'review:submit-review' %}" method="post" id="review-form">
+                <form action="{% url 'review:submit-review' %}" method="post" id="review-form">
                     {% csrf_token %}
                     <input hidden name="product" value="{{object.id}}">
                     <div class="row">
@@ -698,7 +698,7 @@
                                 name="description" required> </textarea>
                         </div>
                     </div>
-                </form> {% endcomment %}
+                </form>
 
             </div>
             <div class="modal-footer">
