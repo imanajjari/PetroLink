@@ -19,8 +19,8 @@ services:
       context: .
       dockerfile: ./dockerfiles/dev/django/Dockerfile
     volumes: 
-      - ./core:/usr/src/app
-    working_dir: /usr/src/app
+      - ./core:/app
+    working_dir: /app
     command: python manage.py runserver 0.0.0.0:8000
     ports:
       - 8000:8000
